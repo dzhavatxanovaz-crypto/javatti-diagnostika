@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<title>Душа. Тело. Дело · Разбор</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@200;300;400&display=swap">
+<style>
+@font-face{font-family:"Shadower";src:url("Shadower.woff2") format("woff2");font-weight:700;font-display:swap}
+
+:root{
+  --cannoli:#EDEEE1; --tapioca:#D7CBBA; --gold:#C3AD70; --straw:#D9C490;
+  --chicory:#47332F; --raindrum:#5B4B40; --rifle:#3F4632; --pesto:#565C33;
+  --cabernet:#5D262E; --russet:#773B43;
+  --surface:#F4F4EA; --line:#DCD9C8; --line-strong:#C8C3AE; --faint:#8A7B6E;
+  --head:"Shadower",Georgia,serif;
+  --text:"Geologica","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--cannoli); color:var(--chicory);
+  font-family:var(--text); font-weight:200; font-size:16px; line-height:1.52;
+  letter-spacing:.055em; -webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.app{max-width:520px;margin:0 auto;padding:22px 18px 34px;min-height:100vh;display:flex;flex-direction:column}
+
+.head-title{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.115em;line-height:1.1;font-size:1.5rem;margin:0}
+h2{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.115em;font-size:1.05rem;margin:0}
+.eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--raindrum);font-weight:400;margin:0 0 10px}
+p{margin:0 0 14px}
+.muted{color:var(--raindrum);font-size:.9375rem}
+.tiny{font-size:.78rem;color:var(--faint);line-height:1.5}
+
+.screen{display:none;flex:1;flex-direction:column}
+.screen.on{display:flex}
+
+/* интро */
+.mark{display:block;width:56px;height:auto;margin-bottom:18px}
+.intro-body{flex:1}
+.intro-lead{font-size:1.0625rem;color:var(--raindrum);max-width:40ch}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0 6px}
+.three div{background:var(--surface);border:1px solid var(--line);padding:14px 10px;text-align:center}
+.three span{display:block;font-family:var(--head);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.three em{display:block;font-style:normal;font-size:.68rem;color:var(--faint);margin-top:5px;letter-spacing:.08em}
+
+/* прогресс */
+.progress{display:flex;gap:3px;margin-bottom:20px}
+.progress i{flex:1;height:3px;background:var(--line);display:block}
+.progress i.done{background:var(--gold)}
+.progress i.now{background:var(--chicory)}
+
+.qmeta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.qmeta .blk{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--raindrum)}
+.qmeta .cnt{font-size:.7rem;letter-spacing:.1em;color:var(--line-strong)}
+.qhint{font-size:.8rem;color:var(--faint);margin:0 0 20px;line-height:1.45;max-width:44ch}
+.qtext{font-size:1.1875rem;line-height:1.38;margin:0 0 24px;font-weight:200}
+
+.opts{display:grid;gap:8px;margin-bottom:18px}
+.opt{
+  display:block;width:100%;text-align:left;font-family:var(--text);font-weight:200;
+  font-size:1rem;letter-spacing:.055em;color:var(--chicory);
+  background:var(--surface);border:1px solid var(--line);padding:15px 16px;
+  cursor:pointer;border-radius:0;transition:border-color .14s,background .14s;
+}
+.opt:hover{border-color:var(--line-strong)}
+.opt.sel{border-color:var(--gold);background:#EFE9D9}
+.opt:focus-visible{outline:2px solid var(--chicory);outline-offset:2px}
+
+.nav{display:flex;gap:10px;margin-top:auto;padding-top:16px}
+.btn{
+  font-family:var(--text);font-weight:400;font-size:.875rem;text-transform:uppercase;
+  letter-spacing:.1em;padding:15px 26px;border:1px solid transparent;cursor:pointer;
+  border-radius:0;transition:background .14s;
+}
+.btn-primary{background:var(--chicory);color:var(--cannoli);flex:1}
+.btn-primary:hover{background:var(--raindrum)}
+.btn-primary[disabled]{opacity:.35;cursor:default}
+.btn-back{background:transparent;color:var(--raindrum);border-color:var(--line-strong);flex:none;padding:15px 18px}
+.btn-gold{background:var(--gold);color:var(--chicory);width:100%}
+.btn-gold:hover{background:var(--straw)}
+
+/* результат */
+.arch{width:100%;height:76px;background:var(--gold);margin-bottom:20px;clip-path:polygon(0 100%,0 30%,20% 0,80% 0,100% 30%,100% 100%)}
+.res-block{border-top:1px solid var(--line);padding:18px 0}
+.res-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}
+.res-name{font-family:var(--head);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.12em}
+.bar{display:flex;gap:3px;flex:none;width:92px}
+.bar i{flex:1;height:6px;background:var(--line);display:block}
+.bar i.f{background:var(--gold)}
+.bar.low i.f{background:var(--cabernet)}
+.bar.high i.f{background:var(--pesto)}
+.res-text{font-size:.9375rem;color:var(--chicory);margin:0}
+
+.leak{background:var(--chicory);color:var(--cannoli);padding:22px 20px;margin:24px 0}
+.leak .eyebrow{color:var(--gold);margin-bottom:8px}
+.leak h2{color:var(--straw);margin-bottom:10px}
+.leak p{color:var(--tapioca);margin:0;font-size:.9375rem}
+.next{background:var(--surface);border:1px solid var(--line);padding:20px;margin-bottom:26px}
+.next .eyebrow{margin-bottom:8px}
+.next p{margin:0;font-size:.9375rem}
+
+.cta{border-top:2px solid var(--gold);padding-top:24px}
+.cta h2{margin-bottom:12px}
+.cta p{font-size:.9375rem;color:var(--raindrum);max-width:46ch}
+.fallback{border:1px solid var(--line-strong);background:var(--surface);padding:14px;margin-bottom:18px;font-size:.82rem;color:var(--raindrum)}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <section class="screen on" id="s-intro">
+    <div class="intro-body">
+      <svg class="mark" viewBox="76 62 132 40" role="img" aria-label="JAVATTI"><path fill="#47332F" d="M176.113,62.595h-68.762L76.267,96.393v5.411h19.675l23.734-9.013c2.186-10.173,11.229-17.799,22.056-17.799c10.826,0,19.87,7.626,22.056,17.799l23.734,9.013h19.676v-5.411L176.113,62.595z"/><path fill="#47332F" d="M136.117,93.557c0.03-0.443,0.045-0.888,0.045-1.328c0-4.271-1.401-8.449-3.962-11.859c2.895-1.612,6.174-2.461,9.533-2.461c3.36,0,6.638,0.849,9.534,2.461c-2.561,3.41-3.962,7.588-3.962,11.859c0,0.441,0.015,0.885,0.045,1.328H136.117z"/></svg>
+      <p class="eyebrow" id="i-author"></p>
+      <h1 class="head-title" id="i-title"></h1>
+      <p class="intro-lead" id="i-sub" style="margin-top:14px"></p>
+      <div class="three" aria-hidden="true">
+        <div><span>Душа</span><em>опора</em></div>
+        <div><span>Тело</span><em>ресурс</em></div>
+        <div><span>Дело</span><em>система</em></div>
+      </div>
+      <div id="i-fallback"></div>
+      <p id="i-lead" style="margin-top:18px"></p>
+      <p class="tiny" id="i-note"></p>
+    </div>
+    <div class="nav"><button class="btn btn-primary" id="startBtn">Начать разбор</button></div>
+  </section>
+
+  <section class="screen" id="s-quiz">
+    <div class="progress" id="prog"></div>
+    <div class="qmeta"><span class="blk" id="q-block"></span><span class="cnt" id="q-count"></span></div>
+    <p class="qhint" id="q-hint"></p>
+    <p class="qtext" id="q-text"></p>
+    <div class="opts" id="q-opts"></div>
+    <div class="nav">
+      <button class="btn btn-back" id="backBtn" type="button">Назад</button>
+      <button class="btn btn-primary" id="nextBtn" type="button" disabled>Дальше</button>
+    </div>
+  </section>
+
+  <section class="screen" id="s-res">
+    <div class="arch" aria-hidden="true"></div>
+    <p class="eyebrow">Результат</p>
+    <h1 class="head-title" id="r-title"></h1>
+    <div id="r-blocks" style="margin-top:20px"></div>
+    <div class="leak">
+      <p class="eyebrow" id="r-leak-label"></p>
+      <h2 id="r-leak-name"></h2>
+      <p id="r-leak-text"></p>
+    </div>
+    <div class="next">
+      <p class="eyebrow" id="r-next-label"></p>
+      <p id="r-next-text"></p>
+    </div>
+    <div class="cta">
+      <h2 id="r-cta-title"></h2>
+      <p id="r-cta-text"></p>
+      <button class="btn btn-gold" id="ctaBtn" type="button"></button>
+      <p class="tiny" style="margin-top:12px;color:var(--raindrum)" id="r-price"></p>
+      <p class="tiny" style="margin-top:14px" id="r-disc"></p>
+      <p class="tiny" style="margin-top:16px"><a href="#" id="againBtn" style="color:var(--faint)">Пройти заново</a></p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+var TG = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+if (TG) { try { TG.ready(); TG.expand(); } catch(e){} }
+
+/* Аварийная копия - используется, только если data.json не загрузился.
+   Намеренно короткая: полные тексты живут в data.json и правятся там. */
+var FALLBACK = {"version":0,"title":"Душа. Тело. Дело","subtitle":"Восемнадцать вопросов о трёх сферах сразу.","author":"Заира Джаватханова · JAVATTI","intro":{"lead":"Дело не чинится отдельно от остального.","note":"Ответы никуда не отправляются, пока ты сама не нажмёшь кнопку в конце.","start":"Начать разбор"},"scale":[{"value":0,"label":"Совсем нет"},{"value":1,"label":"Скорее нет"},{"value":2,"label":"Частично"},{"value":3,"label":"Да, устойчиво"}],"blocks":[{"id":"soul","name":"Душа","hint":"Про систему и регулярность, а не про оценку веры.","questions":[{"id":"d1","text":"Намазы совершаются вовремя, а не «когда получится»?"},{"id":"d2","text":"Есть ежедневное чтение Корана или зикр?"},{"id":"d3","text":"Ты учишься религии системно, а не обрывками из ленты?"},{"id":"d4","text":"Есть время наедине со Всевышним, а не только просьбы в трудную минуту?"},{"id":"d5","text":"Есть ясность, что твой доход чист?"},{"id":"d6","text":"Крупные решения ты сверяешь со своими ориентирами заранее?"}]},{"id":"body","name":"Тело","hint":"Здесь важна честность.","questions":[{"id":"t1","text":"Энергии хватает до конца дня?"},{"id":"t2","text":"Ты спишь достаточно и просыпаешься отдохнувшей?"},{"id":"t3","text":"Ты ешь регулярно, а не на бегу?"},{"id":"t4","text":"Движение есть каждую неделю?"},{"id":"t5","text":"За последний год ты проверяла здоровье?"},{"id":"t6","text":"Ты знаешь, что тебя истощает, и убираешь это?"}]},{"id":"work","name":"Дело","hint":"Честные ответы экономят месяцы.","questions":[{"id":"r1","text":"Ты знаешь прибыль за месяц, а не выручку?"},{"id":"r2","text":"Ты знаешь, сколько стоит привлечь клиента?"},{"id":"r3","text":"Есть линейка продуктов, а не один продукт?"},{"id":"r4","text":"Заявки приходят системно?"},{"id":"r5","text":"Есть задачи, которые делает кто-то кроме тебя?"},{"id":"r6","text":"Есть время на стратегию, а не только текучка?"}]}],"verdicts":{"soul":{"low":"Опоры сейчас нет - и это самое дорогое из того, чего может не хватать.","mid":"Опора есть, но держится на желании, а не на распорядке.","high":"Здесь порядок, и это фундамент."},"body":{"low":"Ресурса нет. В этом состоянии план сорвётся на второй неделе.","mid":"Силы есть, но впритык.","high":"Тело работает на тебя."},"work":{"low":"Системы нет - есть занятость.","mid":"Каркас есть, но с дырами.","high":"Дело устроено системно."}},"priority_hint":{"soul":"Начни с малого и регулярного: одно действие каждый день в одно и то же время.","body":"Начни со сна и еды - в таком порядке.","work":"Начни с цифр: сведи прибыль и стоимость клиента."},"cta":{"resource":{"title":"Начинать нужно не с дела","text":"Твой самый слабый участок - не бизнес. Программа «Душа. Тело. Дело» собрана про восстановление ресурса.","button":"Посмотреть «Душа. Тело. Дело»","url":"https://lavry-emba.ru/dtd"},"business":{"title":"Ресурс есть - вопрос в системе","text":"С опорой порядок, а дело съедает больше, чем отдаёт. Это чинится.","button":"Оставить заявку на разбор","url":""},"both":{"title":"Проседает и то, и другое","text":"Сначала возвращается ресурс, потом строится система. Наоборот не работает.","button":"Посмотреть «Душа. Тело. Дело»","url":"https://lavry-emba.ru/dtd"}},"result":{"title":"Что у тебя происходит","leak_label":"Самое слабое место","next_label":"С чего начинать","disclaimer":"Это отправная точка для разговора, а не диагноз."}};
+
+var D=null, Q=[], answers={}, idx=0, chosenCta=null;
+
+function el(id){ return document.getElementById(id); }
+function show(id){
+  var s=document.querySelectorAll('.screen');
+  for(var i=0;i<s.length;i++) s[i].classList.remove('on');
+  el(id).classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function load(){
+  fetch('data.json?v='+Date.now(),{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
+    .then(function(j){ boot(j,false); })
+    .catch(function(){ boot(FALLBACK,true); });
+}
+
+function boot(data,isFallback){
+  D=data; Q=[];
+  D.blocks.forEach(function(b){
+    b.questions.forEach(function(q){ Q.push({block:b.id,blockName:b.name,hint:b.hint||'',id:q.id,text:q.text}); });
+  });
+  el('i-title').textContent=D.title;
+  el('i-sub').textContent=D.subtitle;
+  el('i-author').textContent=D.author;
+  el('i-lead').textContent=D.intro.lead;
+  el('i-note').textContent=D.intro.note;
+  el('startBtn').textContent=D.intro.start;
+  if(isFallback){
+    el('i-fallback').innerHTML='<div class="fallback">Не удалось загрузить свежие вопросы - работает встроенная версия. Разбор будет корректным, формулировки могут быть чуть старее.</div>';
+  }
+  var p=el('prog'); p.innerHTML='';
+  for(var i=0;i<Q.length;i++) p.appendChild(document.createElement('i'));
+}
+
+function render(){
+  var q=Q[idx];
+  el('q-block').textContent=q.blockName;
+  el('q-count').textContent=(idx+1)+' / '+Q.length;
+  el('q-hint').textContent = (idx===0 || Q[idx-1].block!==q.block) ? q.hint : '';
+  el('q-text').textContent=q.text;
+
+  var box=el('q-opts'); box.innerHTML='';
+  D.scale.forEach(function(o){
+    var b=document.createElement('button');
+    b.type='button'; b.className='opt'; b.textContent=o.label;
+    if(answers[q.id]===o.value) b.classList.add('sel');
+    b.onclick=function(){ answers[q.id]=o.value; render(); el('nextBtn').disabled=false; };
+    box.appendChild(b);
+  });
+
+  var bars=el('prog').children;
+  for(var i=0;i<bars.length;i++) bars[i].className = i<idx ? 'done' : (i===idx ? 'now' : '');
+
+  el('nextBtn').disabled=(answers[q.id]===undefined);
+  el('nextBtn').textContent=(idx===Q.length-1)?'Показать разбор':'Дальше';
+  el('backBtn').style.visibility= idx===0 ? 'hidden' : 'visible';
+}
+
+function score(){
+  var res={};
+  D.blocks.forEach(function(b){
+    var s=0;
+    b.questions.forEach(function(q){ s+=(answers[q.id]||0); });
+    res[b.id]={score:s,max:b.questions.length*3,name:b.name,ratio:s/(b.questions.length*3)};
+  });
+  return res;
+}
+function level(r){ return r<=0.34?'low':(r<=0.67?'mid':'high'); }
+
+function results(){
+  var sc=score();
+  var host=el('r-blocks'); host.innerHTML='';
+  var worstId=null, worst=2;
+
+  D.blocks.forEach(function(b){
+    var d=sc[b.id], lv=level(d.ratio);
+    if(d.ratio<worst){ worst=d.ratio; worstId=b.id; }
+    var filled=Math.round(d.ratio*6), bars='';
+    for(var i=0;i<6;i++) bars+='<i class="'+(i<filled?'f':'')+'"></i>';
+    var w=document.createElement('div');
+    w.className='res-block';
+    w.innerHTML='<div class="res-head"><span class="res-name">'+d.name+'</span>'+
+      '<span class="bar '+lv+'">'+bars+'</span></div>'+
+      '<p class="res-text">'+D.verdicts[b.id][lv]+'</p>';
+    host.appendChild(w);
+  });
+
+  /* Куда вести: ресурс важнее системы. Если проседает душа или тело -
+     сначала восстановление, а не бизнес-разбор. */
+  var weakRes = (sc.soul.ratio < 0.5) || (sc.body.ratio < 0.5);
+  var weakWork = sc.work.ratio < 0.5;
+  chosenCta = weakRes && weakWork ? D.cta.both : (weakRes ? D.cta.resource : D.cta.business);
+
+  el('r-title').textContent=D.result.title;
+  el('r-leak-label').textContent=D.result.leak_label;
+  el('r-leak-name').textContent=sc[worstId].name;
+  el('r-leak-text').textContent=D.verdicts[worstId][level(sc[worstId].ratio)];
+  el('r-next-label').textContent=D.result.next_label;
+  el('r-next-text').textContent=D.priority_hint[worstId];
+  el('r-cta-title').textContent=chosenCta.title;
+  el('r-cta-text').textContent=chosenCta.text;
+  el('ctaBtn').textContent=chosenCta.button;
+  el('ctaBtn').disabled=false;
+  el('r-price').textContent=chosenCta.price_note||'';
+  el('r-disc').textContent=D.result.disclaimer;
+
+  show('s-res');
+}
+
+el('startBtn').onclick=function(){ idx=0; render(); show('s-quiz'); };
+el('backBtn').onclick =function(){ if(idx>0){ idx--; render(); } };
+el('nextBtn').onclick =function(){
+  if(answers[Q[idx].id]===undefined) return;
+  if(idx===Q.length-1) results(); else { idx++; render(); }
+};
+el('againBtn').onclick=function(e){ e.preventDefault(); answers={}; idx=0; show('s-intro'); };
+
+el('ctaBtn').onclick=function(){
+  if(chosenCta && chosenCta.url){
+    if(TG && TG.openLink){ try{ TG.openLink(chosenCta.url); return; }catch(e){} }
+    window.open(chosenCta.url,'_blank','noopener');
+    return;
+  }
+  var sc=score(), lines=[];
+  D.blocks.forEach(function(b){ lines.push(b.name+': '+sc[b.id].score+'/'+sc[b.id].max); });
+  var payload='Заявка на разбор. '+lines.join('; ');
+  if(TG && TG.sendData){ try{ TG.sendData(payload); return; }catch(e){} }
+  el('ctaBtn').textContent='Отправка подключается вместе с ботом';
+  el('ctaBtn').disabled=true;
+};
+
+load();
+</script>
+</body>
+</html>
